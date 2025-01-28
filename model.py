@@ -11,16 +11,25 @@ review_df = pd.read_csv('sample30.csv')
 
 def recommend_top5_products(user_name):
 
+    try:
+        import google.colab
+        IN_COLAB = True
+    except ImportError:
+        IN_COLAB = False
+
+    if IN_COLAB:
+        print("Running on Colab")
+    else:
+        print("Running locally")
+
     # Check if COLAB or Local
-    if 'google.colab' in str(get_ipython()):
-        In_Colab = True
+    if IN_COLAB:
         user_user_recommendation = pkl.load(open('/content/drive/MyDrive/Recommendation System Project/Pickle/user_user_recommendation_model.pkl','rb')) 
         review_data_sentiment = pkl.load(open('/content/drive/MyDrive/Recommendation System Project/Pickle/review_data_sentiment.pkl','rb'))
         sentiment_model = pkl.load(open('/content/drive/MyDrive/Recommendation System Project/Pickle/xgb_model.pkl','rb'))
 
         
     else:
-        In_Colab = False
         user_user_recommendation = pkl.load(open('Pickle/user_user_recommendation_model.pkl','rb')) 
         review_data_sentiment = pkl.load(open('Pickle/review_data_sentiment.pkl','rb'))
         sentiment_model = pkl.load(open('Pickle/xgb_model.pkl','rb'))
