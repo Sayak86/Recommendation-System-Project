@@ -1,0 +1,118 @@
+I have tried several approaches but infortunately failed to deploy myu app here https://obscure-tor-98793-01ff467aa1f4.herokuapp.com/.
+The problem is coming from the python packages which after many runs could not fix, and then the time was running out.
+The error I received :
+flto=auto -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -fPIC -I/tmp/pip-build-env-xp8jutbz/overlay/lib/python3.13/site-packages/numpy/_core/include -I/app/.heroku/python/include/python3.13 -I/app/.heroku/python/include/python3.13 -c thinc/backends/cblas.cpp -o build/temp.linux-x86_64-cpython-313/thinc/backends/cblas.o -O3 -Wno-strict-prototypes -Wno-unused-function -std=c++11
+                   cc1plus: warning: command-line option ‘-Wno-strict-prototypes’ is valid for C/ObjC but not for C++
+                   thinc/backends/cblas.cpp:871:72: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+                     871 | static CYTHON_INLINE size_t __Pyx_Py_UNICODE_strlen(const Py_UNICODE *u) {
+                         |                                                                        ^
+                   In file included from /app/.heroku/python/include/python3.13/unicodeobject.h:1014,
+                                    from /app/.heroku/python/include/python3.13/Python.h:79,
+                                    from thinc/backends/cblas.cpp:24:
+                   /app/.heroku/python/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+                      10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+                         |                                     ^~~~~~~~~~
+                   thinc/backends/cblas.cpp: In function ‘size_t __Pyx_Py_UNICODE_strlen(const Py_UNICODE*)’:
+                   thinc/backends/cblas.cpp:872:23: warning: ‘Py_UNICODE’ is deprecated [-Wdeprecated-declarations]
+                     872 |     const Py_UNICODE *u_end = u;
+                         |                       ^~~~~
+                   /app/.heroku/python/include/python3.13/cpython/unicodeobject.h:10:37: note: declared here
+                      10 | Py_DEPRECATED(3.13) typedef wchar_t Py_UNICODE;
+                         |                                     ^~~~~~~~~~
+                   thinc/backends/cblas.cpp: In function ‘int __Pyx_PyList_Extend(PyObject*, PyObject*)’:
+                   thinc/backends/cblas.cpp:1908:22: error: ‘_PyList_Extend’ was not declared in this scope; did you mean ‘PyList_Extend’?
+                    1908 |     PyObject* none = _PyList_Extend((PyListObject*)L, v);
+                         |                      ^~~~~~~~~~~~~~
+                         |                      PyList_Extend
+                   thinc/backends/cblas.cpp: In function ‘void __Pyx_init_assertions_enabled()’:
+                   thinc/backends/cblas.cpp:1946:39: error: ‘_PyInterpreterState_GetConfig’ was not declared in this scope; did you mean ‘PyInterpreterState_GetID’?
+                    1946 |     __pyx_assertions_enabled_flag = ! _PyInterpreterState_GetConfig(__Pyx_PyThreadState_Current->interp)->optimization_level;
+                         |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         |                                       PyInterpreterState_GetID
+                   thinc/backends/cblas.cpp: In function ‘int __Pyx_PyInt_As_int(PyObject*)’:
+                   thinc/backends/cblas.cpp:20354:46: error: too few arguments to function ‘int _PyLong_AsByteArray(PyLongObject*, unsigned char*, size_t, int, int, int)’
+                   20354 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                         |                           ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+                   20355 |                                               bytes, sizeof(val),
+                         |                                               ~~~~~~~~~~~~~~~~~~~
+                   20356 |                                               is_little, !is_unsigned);
+                         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~
+                   In file included from /app/.heroku/python/include/python3.13/longobject.h:107,
+                                    from /app/.heroku/python/include/python3.13/Python.h:81:
+                   /app/.heroku/python/include/python3.13/cpython/longobject.h:111:17: note: declared here
+                     111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+                         |                 ^~~~~~~~~~~~~~~~~~~
+                   thinc/backends/cblas.cpp: In function ‘long int __Pyx_PyInt_As_long(PyObject*)’:
+                   thinc/backends/cblas.cpp:20550:46: error: too few arguments to function ‘int _PyLong_AsByteArray(PyLongObject*, unsigned char*, size_t, int, int, int)’
+                   20550 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                         |                           ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+                   20551 |                                               bytes, sizeof(val),
+                         |                                               ~~~~~~~~~~~~~~~~~~~
+                   20552 |                                               is_little, !is_unsigned);
+                         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~
+                   /app/.heroku/python/include/python3.13/cpython/longobject.h:111:17: note: declared here
+                     111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+                         |                 ^~~~~~~~~~~~~~~~~~~
+                   thinc/backends/cblas.cpp: In function ‘char __Pyx_PyInt_As_char(PyObject*)’:
+                   thinc/backends/cblas.cpp:20822:46: error: too few arguments to function ‘int _PyLong_AsByteArray(PyLongObject*, unsigned char*, size_t, int, int, int)’
+                   20822 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                         |                           ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+                   20823 |                                               bytes, sizeof(val),
+                         |                                               ~~~~~~~~~~~~~~~~~~~
+                   20824 |                                               is_little, !is_unsigned);
+                         |                                               ~~~~~~~~~~~~~~~~~~~~~~~~
+                   /app/.heroku/python/include/python3.13/cpython/longobject.h:111:17: note: declared here
+                     111 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+                         |                 ^~~~~~~~~~~~~~~~~~~
+                   error: command '/usr/bin/g++' failed with exit code 1
+                   [end of output]
+             
+               note: This error originates from a subprocess, and is likely not a problem with pip.
+               ERROR: Failed building wheel for thinc
+             Successfully built preshed
+             Failed to build thinc
+             ERROR: ERROR: Failed to build installable wheels for some pyproject.toml based projects (thinc)
+             [end of output]
+         
+         note: This error originates from a subprocess, and is likely not a problem with pip.
+       error: subprocess-exited-with-error
+       
+       × pip subprocess to install build dependencies did not run successfully.
+       │ exit code: 1
+       ╰─> See above for output.
+       
+       note: This error originates from a subprocess, and is likely not a problem with pip.
+ !     Error: Unable to install dependencies using pip.
+ !     
+ !     See the log output above for more information.
+ !     Push rejected, failed to compile Python app.
+ !     Push failed
+
+ =============================================================================================================================
+ Although my code is up and running I still could not make it availbale in GUI as an web application.
+ I still would like to leave atrace of the backend behaviour  when I run model.py with an user name 'aaron'
+
+ 
+ ...    # Get the name and review_vectors from review_data_sentiment  for each product present in user_user_recommendation
+...     user_user_recommendation = user_user_recommendation.reset_index()
+...     user_user_recommendation.columns = ['id', 'rating']
+...     # Get top 20 products data frame
+...     top20_products_df = review_data_sentiment[review_data_sentiment.id.isin(user_user_recommendation.id.tolist())]
+...     top20_products_df = top20_products_df.drop_duplicates(subset=['id'])
+...     top20_products_df = top20_products_df[['id', 'review_vectors']]
+...     # Use the sentiment_model to predict the sentiment of the review text
+...     top20_products_df['sentiment_predicted'] = sentiment_model.predict(top20_products_df['review_vectors'].to_list())
+...     # Return the top 20 products data frame where the sentiment is positive
+...     top20_products_df = top20_products_df[top20_products_df['sentiment_predicted'] == 1]
+...     # For each id in top20_products_df check the percentage of positive sentiment in review_data_sentiment
+...     top20_products_df['positive_sentiment_percentage'] = top20_products_df['id'].apply(lambda x: review_data_sentiment[review_data_sentiment['id'] == x]['user_sentiment'].mean())
+...     # Sort the top20_products_df based on the positive_sentiment_percentage and return top 5 products
+...     top_5_products = top20_products_df.sort_values(by='positive_sentiment_percentage', ascending=False).head(5)
+...     # Now merge this data with the review_df to get the product name
+...     top_5_products = pd.merge(top_5_products, review_df[['id', 'name']], left_on='id', right_on='id', how='left')
+...     top_5_products.drop_duplicates(subset=['id'], inplace=True)
+...     return list(top_5_products['name'])
+...
+>>> recommend_top5_products('aaron')
+Running locally
+============================================================================================================================================================================================
